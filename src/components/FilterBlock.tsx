@@ -8,7 +8,7 @@ interface Column {
   title: string;
 }
 
-interface FilterCardProps {
+interface FilterBlockProps {
   columns: Column[];
   onAdd?: () => void;
   onDelete?: () => void;
@@ -18,13 +18,20 @@ interface FilterCardProps {
 const filterMethods = [
   'equals',
   'contain',
-  'greater than',
-  'less than',
   'not contain',
   'regex',
 ];
 
-const FilterRow: React.FC<FilterCardProps> = ({
+// const filterMethodsNumber = [
+//   'equals',
+//   'contain',
+//   'greater than',
+//   'less than',
+//   'not contain',
+//   'regex',
+// ]
+
+const FilterRow: React.FC<FilterBlockProps> = ({
   columns,
   onAdd,
   onDelete,
@@ -58,16 +65,12 @@ const FilterRow: React.FC<FilterCardProps> = ({
   );
 };
 
-const FilterBlock: React.FC<FilterCardProps> = ({ columns }) => {
+const FilterBlock: React.FC<FilterBlockProps> = ({ columns }) => {
   const onFinish = (values: any) => {
     console.log('Received values of form:', values);
   };
 
   const [form] = Form.useForm();
-
-  const filterValues = form.getFieldValue('filter_row');
-
-  console.log('filterValues', filterValues);
 
   return (
     <Card>
