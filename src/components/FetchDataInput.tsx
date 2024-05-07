@@ -25,39 +25,6 @@ const FetchDataInput: React.FC<FetchDataProps> = ({
       .catch(err => console.error(err));
   };
 
-  // This is an example of the structure of the data that we're going to generate from the condition builder.
-
-  // const structureExample = [
-  //   [
-  //     {
-  //       column_name: 'name',
-  //       data_type: 'text',
-  //       condition: 'equals',
-  //       value: 'John Doe',
-  //     },
-  //     {
-  //       column_name: 'age',
-  //       data_type: 'number',
-  //       condition: 'greater than',
-  //       value: 25,
-  //     },
-  //   ],
-  //   [
-  //     {
-  //       column_name: 'name',
-  //       data_type: 'text',
-  //       condition: 'equals',
-  //       value: 'Jane Doe',
-  //     },
-  //     {
-  //       column_name: 'age',
-  //       data_type: 'number',
-  //       condition: 'greater than',
-  //       value: 25,
-  //     },
-  //   ],
-  // ];
-
   const defineColumns = (data: any) => {
     const keys = data.length > 0 ? Object.keys(data[0]) : Object.keys(data);
     const values =
