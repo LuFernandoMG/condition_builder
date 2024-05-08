@@ -71,7 +71,7 @@ const FilterRow: React.FC<FilterGroupProps> = ({
   const currentRule = group.rules.find((rule: Rule) => rule.id === id);
 
   return (
-    <StyledRow>
+    <StyledRow data-testid="filter-row">
       <StyledCol span={24}>
         {initial ? null : <Or>OR</Or>}
         <Select
@@ -80,7 +80,7 @@ const FilterRow: React.FC<FilterGroupProps> = ({
           placeholder="Select a column"
         >
           {columns.map(column => (
-            <Select.Option key={column.key}>{column.title}</Select.Option>
+            <Select.Option role='option' data-testid="select-column" key={column.key}>{column.title}</Select.Option>
           ))}
         </Select>
         <Select
@@ -103,7 +103,7 @@ const FilterRow: React.FC<FilterGroupProps> = ({
           }
           type={currentRule?.data_type === 'number' ? 'number' : 'text'}
         />{' '}
-        <Button type="primary" onClick={onAdd}>
+        <Button type="primary" name="add rule" onClick={onAdd}>
           <PlusOutlined />
         </Button>
         {initial ? null : (

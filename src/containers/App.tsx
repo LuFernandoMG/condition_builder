@@ -21,7 +21,7 @@ const initialRules: RuleGroup[] = [
         data_type: '',
         condition: '',
         value: '',
-      }
+      },
     ],
   },
 ];
@@ -31,17 +31,14 @@ function App() {
   const [rules, setRules] = useState<RuleGroup[]>(initialRules);
   const [columns, setColumns] = useState<Column[]>([]);
 
-  const manageState = (
-    incomingData: any[],
-    definedColumns: Column[],
-  ) => {
+  const manageState = (incomingData: any[], definedColumns: Column[]) => {
     setData(incomingData);
     setColumns(definedColumns);
   };
 
   const handleRules = (value: RuleGroup[]) => {
     setRules(value);
-  }
+  };
 
   return (
     <div className="App">
@@ -50,9 +47,7 @@ function App() {
         manageState={manageState}
       />
       <FilterGroup columns={columns} rules={rules} handleRules={handleRules} />
-      {data.length > 0 && columns.length > 0 && (
         <DataTable dataSource={data} columns={columns} rules={rules} />
-      )}
     </div>
   );
 }

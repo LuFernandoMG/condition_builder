@@ -38,7 +38,7 @@ const FilterGroups: FC<FilterGroupsProps> = ({
   };
 
   return (
-    <div>
+    <div data-testid="filter-groups">
       {rules.map((group) => (
         <div key={group.id}>
           {group.id > 0 && <And>AND</And>}

@@ -65,6 +65,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   return (
     <StyledCard
       title="Filter Group"
+      data-testid="filter-group"
       extra={
         id > 0 ? (
           <Button type="text" danger onClick={onDeleteGroup}>

@@ -54,7 +54,7 @@ const DataTable: React.FC<DataTableProps> = ({
   ];
 
   return (
-    <StyledRow>
+    <StyledRow data-testid="data-table">
       <Col span={24}>
         <H2>Response</H2>
       </Col>

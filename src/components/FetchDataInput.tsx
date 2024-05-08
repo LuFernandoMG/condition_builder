@@ -5,6 +5,7 @@ import { Input, Button, Row, Col, Alert } from 'antd';
 
 // Utils
 import { FetchDataProps } from '../utils/interfaces';
+import { getColumnsFromData } from '../utils/getColumnsFromData';
 
 const FetchDataInput: FC<FetchDataProps> = ({
   defaultUrl,
@@ -25,32 +26,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
   };
 
   const defineColumns = (data: any) => {
-    const keys = data.length > 0 ? Object.keys(data[0]) : Object.keys(data);
-    const values =
-      data.length > 0 ? Object.values(data[0]) : Object.values(data);
-    const specialIndexes: number[] = [];
-
-    values.map((value: any, idx: number) => {
-      if (typeof value === 'object') {
-        specialIndexes.push(idx);
-      } else {
-        return null;
-      }
-    });
-
-    const columns = keys.map((key: string, idx: number) => {
-      return {
-        title: key.charAt(0).toUpperCase() + key.slice(1),
-        dataIndex: key,
-        key: key,
-        render: (value: any) =>
-          specialIndexes.includes(idx) ? JSON.stringify(value) : value,
-        // We're using the "isNaN" function to check if the value is a number or not. If it's
-        // not a number, we're returning the type of the value. If it's a n umber, we're returning
-        // the string 'number'. This way, we can define the type of the column in the table.
-        type: isNaN(Number(values[idx])) ? typeof values[idx] : 'number',
-      };
-    });
+    const columns = getColumnsFromData(data);
 
     if (data.length === undefined) {
       setUniqueValue(true);
@@ -67,7 +43,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
   };
 
   return (
-    <CustomRow gutter={[16, 12]}>
+    <CustomRow gutter={[16, 12]} data-testid="fetch-data-input">
       <Col span={24}>
         <H2>URL Requested</H2>
       </Col>
@@ -75,7 +51,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
         <Input placeholder="URL Input" value={url} onChange={onChange} />
       </Col>
       <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-        <StyledButton type="primary" onClick={requestData}>
+        <StyledButton type="primary" name='Request data' onClick={requestData}>
           Request data
         </StyledButton>
       </Col>
