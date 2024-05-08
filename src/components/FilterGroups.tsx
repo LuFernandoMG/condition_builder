@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import FilterGroup from './FilterGroup';
-import styled from 'styled-components';
+// Dependencies
+import { FC, useState } from 'react';
 import { Button } from 'antd';
-import { Column, RuleGroup } from '../containers/App';
+import styled from 'styled-components';
 
-interface FilterGroupsProps {
-  columns: Column[];
-  rules: RuleGroup[];
-  handleRules: (rules: RuleGroup[]) => void;
-}
+// Utils
+import { FilterGroupsProps } from '../utils/interfaces';
 
-const FilterGroups: React.FC<FilterGroupsProps> = ({
+// Components
+import FilterGroup from './FilterGroup';
+
+const FilterGroups: FC<FilterGroupsProps> = ({
   columns,
   rules,
   handleRules,
@@ -57,6 +56,7 @@ const And = styled.p`
   font-weight: bold;
   font-size: 18px;
   font-style: italic;
+  color: darkgray;
   margin: 10px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',

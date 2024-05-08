@@ -1,28 +1,27 @@
-import { useState } from 'react';
+// Dependencies
+import { FC, useState } from 'react';
 import styled from 'styled-components';
-import { Input, Button, Row, Col } from 'antd';
-import { Column } from '../containers/App';
+import { Input, Button, Row, Col, Alert } from 'antd';
 
-interface FetchDataProps {
-  defaultUrl: string;
-  manageState: (
-    incomingData: any[],
-    definedColumns: Column[],
-    uniqueValueError: boolean
-  ) => void;
-}
+// Utils
+import { FetchDataProps } from '../utils/interfaces';
 
-const FetchDataInput: React.FC<FetchDataProps> = ({
+const FetchDataInput: FC<FetchDataProps> = ({
   defaultUrl,
   manageState,
 }) => {
   const [url, setUrl] = useState(defaultUrl);
+  const [uniqueValue, setUniqueValue] = useState<boolean>(false);
+  const [errorOnRequest, setErrorOnRequest] = useState<boolean>(false);
 
   const requestData = () => {
     fetch(url)
       .then(response => response.json())
       .then(data => defineColumns(data))
-      .catch(err => console.error(err));
+      .catch(err => {
+        setErrorOnRequest(true);
+        console.error(err);
+      });
   };
 
   const defineColumns = (data: any) => {
@@ -54,9 +53,12 @@ const FetchDataInput: React.FC<FetchDataProps> = ({
     });
 
     if (data.length === undefined) {
-      manageState([data], columns, true);
+      setUniqueValue(true);
+      manageState([data], columns);
     } else {
-      manageState(data, columns, false);
+      setErrorOnRequest(false);
+      setUniqueValue(false);
+      manageState(data, columns);
     }
   };
 
@@ -65,7 +67,10 @@ const FetchDataInput: React.FC<FetchDataProps> = ({
   };
 
   return (
-    <CustomRow gutter={[16, 36]}>
+    <CustomRow gutter={[16, 12]}>
+      <Col span={24}>
+        <H2>URL Requested</H2>
+      </Col>
       <Col xs={24} sm={24} md={16} lg={16} xl={16}>
         <Input placeholder="URL Input" value={url} onChange={onChange} />
       </Col>
@@ -74,12 +79,31 @@ const FetchDataInput: React.FC<FetchDataProps> = ({
           Request data
         </StyledButton>
       </Col>
+      <Col span={24}>
+        {errorOnRequest && (
+          <Alert
+            message="It seems like you're trying to call an invalid URL, this is not returning JSON data, give it a review! You can have more information in the console :)"
+            type="error"
+          />
+        )}
+        {uniqueValue && (
+          <Alert
+            message="Unique value detected, you should try with a different URL to get an array of data instead of a single object"
+            type="error"
+          />
+        )}
+      </Col>
     </CustomRow>
   );
 };
 
 const CustomRow = styled(Row)`
-  margin: 36px 0;
+  margin: 36px 0 50px;
+`;
+
+const H2 = styled.h2`
+  color: gray;
+  font-weight: bold;
 `;
 
 const StyledButton = styled(Button)`
