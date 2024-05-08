@@ -1,10 +1,37 @@
-# Getting Started with Create React App
+# Coding challenge for Constellation 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+And supposed to cover the following challenge: https://github.com/Constellation-Engineering/const-recruiting-exercises/blob/main/engineering/condition_builder/README.md
 
-In the project directory, you can run:
+I'll describe the project in the following sections: Structure, Instructions to use and Potential improvements. 
+
+If you want to directly check the live demo, visit: https://condition-builder-8e664ss14-lufernandomgs-projects.vercel.app/
+
+## Structure
+
+The project follows an easy and simple modular structure with an Atomic approach, we have so far three folders:
+
+### Components
+Here you can find all the singular components used in the project, I tried to keep it as modular and simple as possible, and that's why I didn't want to exceed 100 lines per component.
+
+As you can see, you can also find the Testing files for each of these components in this folder, I understand that this approach is not the best in a production environment because can generate confusion and noise. I gave myself the license to keep it this way on this project because is a small project with a very specific feature.
+
+Regarding the testing, I performed general unit tests, in this case, I followed a BDD approach for preparing the challenge instead of a TDD.
+
+### Containers
+Being an application with only one purpose, the container folder only holds the App file, it is the central point of the application and is where the logic of the components are structured.
+
+Just as in the Components folder, you can also see here the unit tests that are defined for the ```App.tsx```.
+
+### Utils
+In this folder you can find some functions of general use that I request in the components and some tests, I decided to move here those functions to reduce the complexity of some components and also to be able to use them in other components or unit tests in a cleaner way.
+
+Also, in this folder, I decided to abstract the required interfaces for TypeScript, so I have all of them in one single file which is more scalable and maintainable. As you can see, managing a complex data structure for the filters pushes me to interconnect many of those interfaces, and having them centralized in one file helps a lot.
+
+## Instructions
+
+As with many regular projects that are started from a boilerplate, here you have the following scripts:
 
 ### `yarn start`
 
@@ -29,18 +56,21 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+If you want to run this project on your local machine you can clone this repo and you should run ```yarn install```and then ```yarn start```. However, for security and practical reasons, you can also check the live demo of the project here: https://condition-builder-8e664ss14-lufernandomgs-projects.vercel.app/
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Potential Improvements
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+I like to have a "Product" vision always that I'm facing a new challenge and that's why I like to prioritize versatility and user experience, avoiding potential issues and crashes on the application.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+However, if I wonder about how to scale this project for a production environment I would recommend:
+- End to End testing
+- Implementation of CI/CD pipeline which includes running all the tests before deploying
+- Add tracking and analytics features to understand the behaviour of the user in the app, in this particular case, I suggest Hotjar for tools like the heat map
+- Analytics to understand the main filters used by the users, so we can start thinking about how to add new value from that starting point
+- Use TypeScript on strict mode and improve some validations to give more sturdiness
+- Think about the server capacity, and allow auto-increment and a load-balancer to avoid downtime
+- The most important of all IMO -> Figure out a business model parting from this
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Anyway, it has been a pleasure to face this challenge and it was super fun! Looking forward to talk about it with you all 🙌🏻
