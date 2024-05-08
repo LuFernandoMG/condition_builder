@@ -1,4 +1,5 @@
 // Dependencies
+import { useState } from 'react';
 import { Row, Col, Select, Input, Button } from 'antd';
 import styled from 'styled-components';
 
@@ -35,6 +36,7 @@ const FilterRow: React.FC<FilterGroupProps> = ({
   id,
   initial,
 }) => {
+  const [hover, setHover] = useState<boolean>(false);
   const onChangeRule = (value: string, key: string) => {
     handleRules(
       rules.map(ruleGroup => {
@@ -50,6 +52,8 @@ const FilterRow: React.FC<FilterGroupProps> = ({
                   return {
                     ...rule,
                     [key]: value,
+                    condition: undefined,
+                    value: undefined,
                     data_type: columnDataType,
                   };
                 } else {
@@ -70,6 +74,13 @@ const FilterRow: React.FC<FilterGroupProps> = ({
 
   const currentRule = group.rules.find((rule: Rule) => rule.id === id);
 
+  const onAddClick = () => {
+    if (onAdd) {
+      onAdd();
+    }
+    setHover(false);
+  }
+
   return (
     <StyledRow data-testid="filter-row">
       <StyledCol span={24}>
@@ -86,6 +97,7 @@ const FilterRow: React.FC<FilterGroupProps> = ({
         <Select
           onChange={(e: string) => onChangeRule(e, 'condition')}
           showSearch
+          value={currentRule?.condition}
           placeholder="Select a filter method"
         >
           {filterMethods(currentRule?.data_type).map(method => (
@@ -101,9 +113,10 @@ const FilterRow: React.FC<FilterGroupProps> = ({
               ? 'Ex: 123'
               : 'Input search text'
           }
+          value={currentRule?.value}
           type={currentRule?.data_type === 'number' ? 'number' : 'text'}
         />{' '}
-        <Button type="primary" name="add rule" onClick={onAdd}>
+        <Button type="primary" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} name="add rule" onClick={onAddClick}>
           <PlusOutlined />
         </Button>
         {initial ? null : (
@@ -112,9 +125,17 @@ const FilterRow: React.FC<FilterGroupProps> = ({
           </Button>
         )}
       </StyledCol>
+      {hover && <CustomHoveCol span={24} />}
     </StyledRow>
   );
 };
+
+const CustomHoveCol = styled(Col)`
+  width: 100%;
+  margin: 24px 0;
+  height: 32px;
+  background-color: lightGrey;
+`;
 
 const StyledRow = styled(Row)`
   margin: 24px 0;
