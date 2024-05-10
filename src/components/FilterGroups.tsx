@@ -9,6 +9,14 @@ import { FilterGroupsProps } from '../utils/interfaces';
 // Components
 import FilterGroup from './FilterGroup';
 
+/**
+ * FilterGroups component
+ * @description This component is used to manage the different groups of rules that are going to be used to filter the data.
+ * @param {FilterGroupsProps} columns - The columns to be used to filter the data.
+ * @param {FilterGroupsProps} rules - The rules to be used to filter the data.
+ * @param {FilterGroupsProps} handleRules - The function to handle the rules from the parent component.
+ * @returns {React.FC<FilterGroupsProps>} The FilterGroups component
+ */
 const FilterGroups: FC<FilterGroupsProps> = ({
   columns,
   rules,
@@ -17,6 +25,7 @@ const FilterGroups: FC<FilterGroupsProps> = ({
   // This state is used to generate unique IDs for each group of rules. Start with 1 because the default group had ID 0
   const [idGroup, setIdGroup] = useState<number>(1);
   
+  // Function used to add a new group of rules of type AND
   const addFilterGroup = () => {
     setIdGroup(idGroup + 1);
     const newGroup = {

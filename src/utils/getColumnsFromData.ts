@@ -1,3 +1,4 @@
+// Function to get the columns from the data, it map the structure of the data received and define the Keys of that data to be structured in the array for Antd Table
 export const getColumnsFromData = (data: any) => {
     const keys = data.length > 0 ? Object.keys(data[0]) : Object.keys(data);
     const values =

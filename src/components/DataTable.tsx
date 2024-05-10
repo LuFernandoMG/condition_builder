@@ -9,6 +9,15 @@ import type { TabsProps } from 'antd';
 import { Rule, RuleGroup, DataTableProps } from '../utils/interfaces';
 import { getConditionalFilter } from '../utils/getConditionalFilter';
 
+/**
+ * DataTable component
+ * @description This component is responsible for rendering the data tables based on the rules defined by the user.
+ * @param {DataTableProps} dataSource - The data source to be rendered in the tables.
+ * @param {DataTableProps} columns - The columns to be rendered in the tables.
+ * @param {DataTableProps} rules - The rules defined by the user to filter the data.
+ * @returns {React.FC<DataTableProps>} The DataTable component
+ */
+
 const DataTable: React.FC<DataTableProps> = ({
   dataSource,
   columns,
@@ -26,12 +35,15 @@ const DataTable: React.FC<DataTableProps> = ({
     };
   });
 
+  // Here's were we filter the data based on the rules defined by the user,
+  // being used the 'every' for the AND condition and 'some' for the OR condition.
   const filteredData = dataSource.filter((data: any) => {
     return filteredRules.every((group: RuleGroup) => {
       return group.rules.some((rule: Rule) => getConditionalFilter(rule, data));
     });
   });
 
+  // Setting the items for the Tabs component for Antd, including both tables with the data
   const items: TabsProps['items'] = [
     {
       key: '1',

@@ -10,6 +10,7 @@ import { Rule } from '../utils/interfaces';
 // Assets
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
 
+// Function to filter the methods based on the data type, so we're not showing methods that are not applicable to the data type.
 const filterMethods = (dataType: string | undefined) => {
   switch (dataType) {
     case 'number':
@@ -26,6 +27,19 @@ const filterMethods = (dataType: string | undefined) => {
   }
 };
 
+/**
+ * FilterRow component
+ * @description This component is used to manage the specific row of rules that are going to be used to filter the data.
+ * @param {FilterGroupProps} columns - The columns to be used to filter the data.
+ * @param {FilterGroupProps} onAdd - The function to add a new rule to the group.
+ * @param {FilterGroupProps} handleRules - The function to handle the rules from the parent component.
+ * @param {FilterGroupProps} rules - The rules to be used to filter the data.
+ * @param {FilterGroupProps} group - The group of rules to be used to filter the data.
+ * @param {FilterGroupProps} onDelete - The function to delete the group of rules.
+ * @param {FilterGroupProps} id - The ID of the group of rules.
+ * @param {FilterGroupProps} initial - The flag to check if the group is the initial group.
+ * @returns {React.FC<FilterGroupProps>} The FilterRow component
+ */
 const FilterRow: React.FC<FilterGroupProps> = ({
   columns,
   onAdd,
@@ -37,6 +51,8 @@ const FilterRow: React.FC<FilterGroupProps> = ({
   initial,
 }) => {
   const [hover, setHover] = useState<boolean>(false);
+
+  // Function to handle the change of the rules, so we're updating the rules based on the user input.
   const onChangeRule = (value: string, key: string) => {
     handleRules(
       rules.map(ruleGroup => {
@@ -72,8 +88,10 @@ const FilterRow: React.FC<FilterGroupProps> = ({
     );
   };
 
+  // Function to get the current rule based on the ID so we can have relevant information to display some sections of the UI
   const currentRule = group.rules.find((rule: Rule) => rule.id === id);
 
+  // Function to handle the click on the add button, so we're adding a new rule to the group
   const onAddClick = () => {
     if (onAdd) {
       onAdd();

@@ -7,6 +7,14 @@ import { Input, Button, Row, Col, Alert } from 'antd';
 import { FetchDataProps } from '../utils/interfaces';
 import { getColumnsFromData } from '../utils/getColumnsFromData';
 
+
+/**
+ * FetchDataInput component
+ * @description This component is used to request data from an API and manage the state of the parent component.
+ * @param {FetchDataProps} defaultUrl - The default URL to be requested.
+ * @param {FetchDataProps} manageState - The function to manage the state of the parent component.
+ * @returns {React.FC<FetchDataProps>} The FetchDataInput component
+ */
 const FetchDataInput: FC<FetchDataProps> = ({
   defaultUrl,
   manageState,
@@ -15,6 +23,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
   const [uniqueValue, setUniqueValue] = useState<boolean>(false);
   const [errorOnRequest, setErrorOnRequest] = useState<boolean>(false);
 
+  // Simple function to request data from an API and manage the state of the parent component.
   const requestData = () => {
     fetch(url)
       .then(response => response.json())
@@ -25,6 +34,10 @@ const FetchDataInput: FC<FetchDataProps> = ({
       });
   };
 
+  // In order to use the Tables from Antd, we need to define the columns that we're going
+  // to use in the table, this is done by the function getColumnsFromData that we're importing
+  // from the utils folder. This function will return an array of columns based on the data that
+  // we're passing to it, so we can use it to define the columns of the table.
   const defineColumns = (data: any) => {
     const columns = getColumnsFromData(data);
 
@@ -38,6 +51,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
     }
   };
 
+  // Regular function to handle the change of the input
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
@@ -56,6 +70,7 @@ const FetchDataInput: FC<FetchDataProps> = ({
         </StyledButton>
       </Col>
       <Col span={24}>
+        {/* Here we're managing some errors that could happen when requesting the data */}
         {errorOnRequest && (
           <Alert
             message="It seems like you're trying to call an invalid URL, this is not returning JSON data, give it a review! You can have more information in the console :)"

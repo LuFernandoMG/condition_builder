@@ -1,5 +1,6 @@
 import { Rule } from "./interfaces";
 
+// Function to filter the data based on the rules defined by the user
 export const getConditionalFilter = (rule: Rule, data: any) => {
     switch (rule.condition) {
         case 'equals':

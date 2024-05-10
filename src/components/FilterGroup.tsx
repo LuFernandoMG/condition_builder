@@ -12,6 +12,16 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 // Components
 import FilterRow from './FilterRow';
 
+/**
+ * FilterGroup component
+ * @description This component is used to manage and specific group of rules that are going to be used to filter the data.
+ * @param {FilterGroupProps} columns - The columns to be used to filter the data.
+ * @param {FilterGroupProps} group - The group of rules to be used to filter the data.
+ * @param {FilterGroupProps} handleRules - The function to handle the rules from the parent component.
+ * @param {FilterGroupProps} rules - The rules to be used to filter the data.
+ * @param {FilterGroupProps} id - The ID of the group of rules.
+ * @returns {React.FC<FilterGroupProps>} The FilterGroup component
+ */
 const FilterGroup: React.FC<FilterGroupProps> = ({
   columns,
   group,
@@ -21,6 +31,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
 }) => {
   const [rulesId, setRulesId] = useState<number>(1);
 
+  // Function used to add a new object Rule for the OR section of the current group
   const addRules = (group: RuleGroup) => {
     setRulesId(rulesId + 1);
     const newRuleTemplate = {
@@ -44,6 +55,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
     handleRules(newRules);
   };
 
+  // Function used to remove a rule from the group
   const removeRule = (id: number) => {
     const newRules = rules.map(ruleGroup => {
       if (ruleGroup.id === group.id) {
@@ -57,6 +69,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
     handleRules(newRules);
   };
 
+  // Function used to delete the group entirely, it only works if the group is not the first one
   const onDeleteGroup = () => {
     const newRules = rules.filter(ruleGroup => ruleGroup.id !== group.id);
     handleRules(newRules);

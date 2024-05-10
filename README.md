@@ -70,6 +70,8 @@ However, if I wonder about how to scale this project for a production environmen
 - Analytics to understand the main filters used by the users, so we can start thinking about how to add new value from that starting point
 - Use TypeScript on strict mode and improve some validations to give more sturdiness
 - Think about the server capacity, and allow auto-increment and a load-balancer to avoid downtime
+- Better Form structure for validations and users' understanding, following the standards of the library used (Ant Design in this case)
+- Add a more friendly layout, a menu, a tutorial and probably also a landing page to explain the platform
 - The most important of all IMO -> Figure out a business model parting from this
 
 

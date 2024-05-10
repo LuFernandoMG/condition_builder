@@ -9,6 +9,7 @@ import FetchDataInput from '../components/FetchDataInput';
 import FilterGroup from '../components/FilterGroups';
 import DataTable from '../components/DataTable';
 
+// Template of the Rules data structure
 const initialRules: RuleGroup[] = [
   {
     id: 0,
@@ -26,16 +27,23 @@ const initialRules: RuleGroup[] = [
   },
 ];
 
+/**
+ * App component
+ * @description This component is the main component of the application, responsible for managing the state of the data and the rules.
+ * @returns {React.FC} The App component
+ */
 function App() {
   const [data, setData] = useState<any>([]);
   const [rules, setRules] = useState<RuleGroup[]>(initialRules);
   const [columns, setColumns] = useState<Column[]>([]);
 
+  // Function to manage the state of the data and the columns from the parent component
   const manageState = (incomingData: any[], definedColumns: Column[]) => {
     setData(incomingData);
     setColumns(definedColumns);
   };
 
+  // Function to handle the rules from the upper component
   const handleRules = (value: RuleGroup[]) => {
     setRules(value);
   };
