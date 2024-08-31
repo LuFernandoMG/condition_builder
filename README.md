@@ -1,12 +1,4 @@
-# Coding challenge for Constellation 
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-And supposed to cover the following challenge: https://github.com/Constellation-Engineering/const-recruiting-exercises/blob/main/engineering/condition_builder/README.md
-
-I'll describe the project in the following sections: Structure, Instructions to use and Potential improvements. 
-
-If you want to directly check the live demo, visit: https://condition-builder-8e664ss14-lufernandomgs-projects.vercel.app/
+# Condition Builder
 
 ## Structure
 
